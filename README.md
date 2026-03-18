@@ -48,8 +48,7 @@ python app/macos.py
 
 Логин/пароль: оставить пустыми
 
-⚙️ Настройка
-Через иконку в трее можно:
+⚙️ Настройка через иконку в трее можно:
 
 🔗 Открыть Telegram с настройками прокси
 
@@ -62,7 +61,9 @@ python app/macos.py
 🚪 Выйти из приложения
 
 📋 Логи
+```
 ~/Library/Application Support/TgWsProxy/proxy.log
+```
 🛠 Сборка из исходников
 ``` bash
 cd installer
