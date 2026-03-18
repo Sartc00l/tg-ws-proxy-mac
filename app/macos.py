@@ -1,7 +1,28 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from __future__ import annotations
+from __future__ import annotations   # <-- ЭТО ДОЛЖНО БЫТЬ ПЕРВЫМ
+
+# ==== СПЕЦИАЛЬНО ДЛЯ СКРЫТИЯ ИЗ ДОКА ====
+import AppKit
+import objc
+
+# Принудительно устанавливаем политику активации как агент (без иконки в доке)
+NSApp = AppKit.NSApplication.sharedApplication()
+NSApp.setActivationPolicy_(AppKit.NSApplicationActivationPolicyAccessory)
+
+# Дополнительно скрываем приложение из всех списков
+NSApp.deactivate()
+
+# Убеждаемся, что инфо-словарь содержит нужные ключи
+bundle = AppKit.NSBundle.mainBundle()
+info = bundle.localizedInfoDictionary() or bundle.infoDictionary()
+if info:
+    info['LSUIElement'] = '1'
+    info['NSUIElement'] = '1'
+    info['Application is agent (UIElement)'] = '1'
+    info['LSBackgroundOnly'] = '1'
+# ==================================================
 
 import os
 import sys
@@ -296,6 +317,16 @@ class TgWsProxyApp:
     """Основной класс приложения для macOS"""
     
     def __init__(self):
+        # ==== ДОПОЛНИТЕЛЬНОЕ СКРЫТИЕ ИЗ ДОКА ====
+        try:
+            from AppKit import NSApplication, NSApplicationActivationPolicyAccessory
+            NSApp = NSApplication.sharedApplication()
+            NSApp.setActivationPolicy_(NSApplicationActivationPolicyAccessory)
+            NSApp.deactivate()
+        except:
+            pass
+        # ========================================
+        
         self.config = load_config()
         self.proxy_running = False
         self.status_var = None
@@ -429,6 +460,13 @@ class TgWsProxyApp:
     
     def show_first_run(self):
         """Показ окна первого запуска"""
+        # Скрываем это окно из Дока
+        try:
+            from AppKit import NSApplication, NSApplicationActivationPolicyAccessory
+            NSApplication.sharedApplication().setActivationPolicy_(NSApplicationActivationPolicyAccessory)
+        except:
+            pass
+        
         if not TK_AVAILABLE:
             FIRST_RUN_MARKER.touch()
             return
@@ -479,6 +517,13 @@ class TgWsProxyApp:
     
     def show_settings_window(self):
         """Окно настроек"""
+        # Скрываем окно настроек из Дока
+        try:
+            from AppKit import NSApplication, NSApplicationActivationPolicyAccessory
+            NSApplication.sharedApplication().setActivationPolicy_(NSApplicationActivationPolicyAccessory)
+        except:
+            pass
+        
         if not TK_AVAILABLE:
             return
         
@@ -628,7 +673,7 @@ def check_dependencies():
     try:
         # tg_ws_proxy уже импортирован в начале файла
         tg_ws_proxy.__name__
-        print("✅ tg_ws_propy найден")
+        print("✅ tg_ws_proxy найден")
     except NameError:
         try:
             # Пробуем импортировать ещё раз
@@ -650,6 +695,14 @@ def check_dependencies():
 
 def main():
     """Основная функция"""
+    # ==== ДОПОЛНИТЕЛЬНОЕ СКРЫТИЕ ПРИ ЗАПУСКЕ ====
+    try:
+        from AppKit import NSApplication, NSApplicationActivationPolicyAccessory
+        NSApplication.sharedApplication().setActivationPolicy_(NSApplicationActivationPolicyAccessory)
+    except:
+        pass
+    # ============================================
+    
     # Проверяем наличие зависимостей
     if not check_dependencies():
         input("\nНажмите Enter для выхода...")
