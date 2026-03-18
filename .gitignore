@@ -1,0 +1,39 @@
+# Виртуальное окружение
+venv/
+.env/
+.venv/
+
+# Сборка
+build/
+dist/
+*.dmg
+*.app
+installer/dist/
+installer/build/
+
+# Кэш Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Системные файлы macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Файлы логов
+*.log
+*.log.*
+~/Library/Application\ Support/TgWsProxy/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

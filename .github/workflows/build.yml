@@ -1,0 +1,52 @@
+name: Build macOS App
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements-mac.txt
+    
+    - name: Build .app bundle
+      run: |
+        cd installer
+        chmod +x build_app.sh
+        ./build_app.sh
+    
+    - name: Create DMG
+      run: |
+        brew install create-dmg
+        create-dmg \
+          --volname "TG WS Proxy" \
+          --volicon "installer/icon.icns" \
+          --window-pos 200 120 \
+          --window-size 800 400 \
+          --icon-size 100 \
+          --icon "TG WS Proxy.app" 200 190 \
+          --hide-extension "TG WS Proxy.app" \
+          --app-drop-link 600 185 \
+          "dist/TG-WS-Proxy.dmg" \
+          "dist/TG WS Proxy.app"
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: TG-WS-Proxy-macOS
+        path: |
+          dist/TG-WS-Proxy.dmg
+          dist/TG\ WS\ Proxy.app
