@@ -1,4 +1,4 @@
-# TG WS Proxy для macOS
+# Telegram WS Proxy для macOS
 
 [![Release](https://img.shields.io/github/v/release/Maxim-szh/tg-ws-proxy-mac)](https://github.com/Maxim-szh/tg-ws-proxy-mac/releases)
 [![Issues](https://img.shields.io/github/issues/Maxim-szh/tg-ws-proxy-mac)](https://github.com/Maxim-szh/tg-ws-proxy-mac/issues)
