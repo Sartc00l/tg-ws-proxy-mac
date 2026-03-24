@@ -112,6 +112,27 @@ python app/macos.py
 
 ---
 
+## 🧪 Альтернативный UI (PyQt6)
+
+В репозитории также доступен экспериментальный интерфейс на PyQt6 с расширенными возможностями:
+
+- улучшенный desktop UI
+- встроенный просмотр логов и статистики
+- tray-режим с поведением "скрыть при закрытии"
+- не отображается в Dock (macOS accessory app)
+
+### Запуск альтернативного UI
+```bash
+pip install -r requirements-qt.txt
+python app/macos_qt.py
+```
+### Сборка в .app
+```bash
+pip install py2app
+python packaging/py2app_setup.py py2app
+```
+Результат сборки находится в dist/TG WS Proxy.app
+
 ## 🤝 Обратная связь
 
 Если у вас возникли проблемы или есть предложения:
