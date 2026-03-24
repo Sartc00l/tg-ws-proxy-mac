@@ -1,10 +1,13 @@
 from setuptools import setup
+import os
 
-APP = ["../app/macos_qt.py"]
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+APP = [os.path.join(BASE_DIR, "..", "app", "macos_qt.py")]
 
 OPTIONS = {
     "argv_emulation": False,
-    "iconfile": "../installer/icon.icns",
+    "iconfile": os.path.join(BASE_DIR, "..", "installer", "icon.icns"),
     "plist": {
         "CFBundleName": "TG WS Proxy",
         "CFBundleDisplayName": "TG WS Proxy",
@@ -22,7 +25,6 @@ OPTIONS = {
     "includes": [
         "app",
         "app.tg_ws_proxy",
-        "tg_ws_proxy",
         "_cffi_backend",
         "cffi",
         "cryptography",
