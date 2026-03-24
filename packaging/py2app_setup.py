@@ -1,13 +1,14 @@
 from setuptools import setup
 import os
+from pathlib import Path
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = Path(__file__).resolve().parent
 
-APP = [os.path.join(BASE_DIR, "..", "app", "macos_qt.py")]
+APP = [str(BASE_DIR.parent / "app" / "macos_qt.py")]
 
 OPTIONS = {
     "argv_emulation": False,
-    "iconfile": os.path.join(BASE_DIR, "..", "installer", "icon.icns"),
+    "iconfile": str(BASE_DIR.parent / "installer" / "icon.icns"),
     "plist": {
         "CFBundleName": "TG WS Proxy",
         "CFBundleDisplayName": "TG WS Proxy",
